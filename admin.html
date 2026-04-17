@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atlas Press Argentina | Admin</title>
+  <meta name="description" content="Panel web de edicion con login y gestion de portada.">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body data-page="admin">
+  <div class="admin-shell">
+    <section class="admin-panel auth-panel" id="loginPanel">
+      <p class="eyebrow">Panel editorial</p>
+      <h1>Ingresar al CMS</h1>
+      <p class="admin-copy">Esta demo funciona sin backend y guarda los cambios en tu navegador.</p>
+      <form id="loginForm" class="auth-form">
+        <label>
+          <span>Usuario</span>
+          <input type="text" name="username" placeholder="admin" required>
+        </label>
+        <label>
+          <span>Contrasena</span>
+          <input type="password" name="password" placeholder="admin123" required>
+        </label>
+        <button type="submit" class="button button--primary">Entrar</button>
+      </form>
+      <p class="hint">Usuario demo: <strong>admin</strong> | Clave demo: <strong>admin123</strong></p>
+      <a class="back-link" href="index.html">Volver al sitio</a>
+    </section>
+
+    <section class="admin-panel hidden" id="dashboardPanel">
+      <div class="admin-hero">
+        <div>
+          <p class="eyebrow">Atlas Press Argentina</p>
+          <h1>Centro de publicacion</h1>
+          <p class="admin-copy">Elegi si queres crear una nota editorial, administrar publicidad o ajustar datos generales del sitio.</p>
+        </div>
+        <div class="dashboard-actions">
+          <a class="button button--ghost" href="index.html">Ver portada</a>
+          <button type="button" class="button button--ghost" id="logoutButton">Salir</button>
+        </div>
+      </div>
+
+      <div class="admin-quick-actions">
+        <a href="#storyForm" class="quick-action-card">
+          <span>1</span>
+          <strong>Crear nota</strong>
+          <small>Contenido editorial, historias y coberturas.</small>
+        </a>
+        <a href="#adForm" class="quick-action-card quick-action-card--ad">
+          <span>2</span>
+          <strong>Crear publicidad</strong>
+          <small>Avisos con imagen, texto breve y link externo.</small>
+        </a>
+        <a href="#settingsForm" class="quick-action-card">
+          <span>3</span>
+          <strong>Ajustes rapidos</strong>
+          <small>Nombre, eslogan y restauracion de demo.</small>
+        </a>
+      </div>
+
+      <div class="dashboard-grid">
+        <form id="storyForm" class="editor-card story-editor-card">
+          <div class="story-editor-header">
+            <div class="story-editor-icon">N</div>
+            <div>
+              <p class="eyebrow">Contenido editorial</p>
+              <h2>Nueva nota / Editar nota</h2>
+              <p class="form-intro">Usa este formulario para publicar noticias, eventos, campanas o historias. Si estas cargando un aviso, usa la seccion de publicidad mas abajo.</p>
+            </div>
+          </div>
+
+          <div class="editor-summary">
+            <div>
+              <span>Tipo</span>
+              <strong>Nota</strong>
+            </div>
+            <div>
+              <span>Salida</span>
+              <strong>Portada</strong>
+            </div>
+            <div>
+              <span>Estado</span>
+              <strong>Editable</strong>
+            </div>
+          </div>
+
+          <input type="hidden" name="id">
+
+          <div class="form-section">
+            <p class="form-section__title">Informacion principal</p>
+            <label>
+              <span>Titulo</span>
+              <input type="text" name="title" placeholder="Ej: Encuentro interreligioso en Buenos Aires" required>
+            </label>
+            <label>
+              <span>Bajada</span>
+              <textarea name="excerpt" rows="3" placeholder="Resumen breve que aparecera en portada" required></textarea>
+            </label>
+          </div>
+
+          <div class="form-section">
+            <p class="form-section__title">Clasificacion</p>
+            <div class="form-split">
+              <label>
+                <span>Categoria</span>
+                <select name="category" required></select>
+              </label>
+              <label>
+                <span>Autor</span>
+                <input type="text" name="author" placeholder="Redaccion" required>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <p class="form-section__title">Imagen y lectura</p>
+            <div class="form-split">
+              <label>
+                <span>Imagen principal</span>
+                <input type="url" name="image" placeholder="https://..." required>
+                <small class="field-hint">Usa una URL directa de imagen, por ejemplo .jpg, .png o .webp. Los links de Google Photos no se embeben bien.</small>
+              </label>
+            </div>
+            <div class="image-picker">
+              <label class="button button--ghost image-picker__button">
+                Incluir imagen
+                <input type="file" name="imageFile" accept="image/*">
+              </label>
+              <small class="field-hint">En esta demo la imagen se guarda dentro del navegador.</small>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <p class="form-section__title">Ubicacion en portada</p>
+            <div class="form-split">
+              <label class="checkbox">
+                <input type="checkbox" name="featured">
+                <span>Destacada en portada</span>
+              </label>
+              <label class="checkbox">
+                <input type="checkbox" name="editorsPick">
+                <span>Seleccion del editor</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <p class="form-section__title">Cuerpo de la nota</p>
+            <label>
+              <span>Contenido</span>
+              <textarea name="content" rows="10" placeholder="Escribi la nota completa. Separa parrafos con una linea en blanco." required></textarea>
+            </label>
+          </div>
+
+          <div class="dashboard-actions">
+            <button type="submit" class="button button--primary">Guardar nota</button>
+            <button type="button" class="button button--ghost" id="resetFormButton">Limpiar</button>
+          </div>
+          <div class="publish-feedback hidden" id="publishFeedback"></div>
+        </form>
+
+        <aside class="editor-card settings-card">
+          <div class="settings-card__header">
+            <div class="settings-icon">AP</div>
+            <div>
+              <p class="eyebrow">Sitio</p>
+              <h2>Configuracion rapida</h2>
+              <p class="admin-copy">Ajustes simples para mantener la identidad del portal consistente.</p>
+            </div>
+          </div>
+
+          <div class="settings-summary">
+            <div>
+              <span>Estado</span>
+              <strong>Demo local</strong>
+            </div>
+            <div>
+              <span>Contenido</span>
+              <strong>Editable</strong>
+            </div>
+          </div>
+
+          <form id="settingsForm" class="settings-form">
+            <div class="form-section settings-section">
+              <p class="form-section__title">Identidad</p>
+              <label>
+                <span>Nombre del sitio</span>
+                <input type="text" name="siteName" required>
+              </label>
+              <label>
+                <span>Eslogan</span>
+                <textarea name="tagline" rows="3" required></textarea>
+              </label>
+              <button type="submit" class="button button--primary">Guardar ajustes</button>
+            </div>
+          </form>
+
+          <div class="seed-box settings-section settings-section--demo">
+            <div>
+              <p class="form-section__title">Datos demo</p>
+              <h3>Restaurar contenido inicial</h3>
+              <p>Volves al contenido de ejemplo, categorias, portada y publicidad inicial.</p>
+            </div>
+            <button type="button" class="button button--ghost" id="restoreSeedButton">Restaurar demo</button>
+          </div>
+        </aside>
+      </div>
+
+      <section class="editor-card">
+        <div class="dashboard-header">
+          <div>
+            <p class="eyebrow">Archivo editorial</p>
+            <h2>Notas publicadas</h2>
+          </div>
+          <p class="admin-copy">Podes editar, borrar o abrir cada nota para revisar como se ve.</p>
+        </div>
+        <div id="storiesTable" class="stories-table"></div>
+      </section>
+
+      <section class="editor-card admin-section-split">
+        <div class="dashboard-header">
+          <div>
+            <p class="eyebrow">Publicidad</p>
+            <h2>Contenido publicitario</h2>
+          </div>
+          <p class="admin-copy">Estos elementos no son notas: aparecen como avisos o sponsors con link externo.</p>
+        </div>
+
+        <div class="dashboard-grid">
+          <form id="adForm" class="ad-form">
+            <input type="hidden" name="id">
+            <div class="form-section">
+              <p class="form-section__title">Datos del aviso</p>
+              <label>
+                <span>Etiqueta</span>
+                <input type="text" name="label" placeholder="Publicidad" required>
+              </label>
+              <label>
+                <span>Titulo del aviso</span>
+                <input type="text" name="title" placeholder="Ej: Sponsor institucional" required>
+              </label>
+              <label>
+                <span>Descripcion breve</span>
+                <textarea name="description" rows="3" placeholder="Texto corto que acompana la imagen" required></textarea>
+              </label>
+            </div>
+
+            <div class="form-section">
+              <p class="form-section__title">Imagen y destino</p>
+              <label>
+                <span>Imagen del aviso</span>
+                <input type="url" name="image" placeholder="https://..." required>
+                <small class="field-hint">Usa una URL directa de imagen para que el aviso se vea correctamente.</small>
+              </label>
+              <div class="image-picker">
+                <label class="button button--ghost image-picker__button">
+                  Incluir imagen
+                  <input type="file" name="imageFile" accept="image/*">
+                </label>
+                <small class="field-hint">La imagen quedara guardada localmente en este navegador.</small>
+              </div>
+              <label>
+                <span>Link de destino</span>
+                <input type="url" name="url" placeholder="https://..." required>
+              </label>
+            </div>
+
+            <div class="dashboard-actions">
+              <button type="submit" class="button button--primary">Guardar publicidad</button>
+              <button type="button" class="button button--ghost" id="resetAdButton">Limpiar publicidad</button>
+            </div>
+            <div class="publish-feedback hidden" id="adFeedback"></div>
+          </form>
+
+          <aside>
+            <div class="ad-preview" id="adPreview"></div>
+            <div id="adsTable" class="stories-table ad-list"></div>
+          </aside>
+        </div>
+      </section>
+    </section>
+  </div>
+
+  <script src="assets/app.js"></script>
+  <script src="assets/admin.js"></script>
+</body>
+</html>
