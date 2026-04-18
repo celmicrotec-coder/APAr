@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Atlas Press Argentina</title>
-  <meta name="description" content="Portal editorial moderno con portada dinámica y administración web.">
+  <meta name="description" content="Portal editorial moderno con portada dinamica y administracion web.">
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body data-page="home">
@@ -17,59 +17,56 @@
       <div class="brand-row">
         <div>
           <p class="eyebrow">Prensa Digital</p>
-          <a class="brand" href="index.html">Atlas Press<br>Argentina</a>
+          <a class="brand" href="index.html">
+            <span class="brand__main">Atlas Press</span>
+            <span class="brand__sub">Argentina</span>
+          </a>
         </div>
-        <p class="brand-copy">Noticias, análisis y cultura con una portada flexible para destacar lo importante.</p>
+        <p class="brand-copy">Noticias, analisis y cultura con una portada flexible para destacar lo importante.</p>
       </div>
       <nav class="section-nav" id="sectionNav"></nav>
     </header>
 
     <main class="layout">
-      <section class="hero-grid">
-        <article class="hero-card" id="heroStory"></article>
-        <aside class="hero-side" id="heroSide"></aside>
-      </section>
-
       <section class="impact-strip" id="impactStrip"></section>
-
-      <aside class="sponsor-strip" id="sponsorStrip" aria-label="Publicidad"></aside>
-
-      <section class="stream-section">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Cobertura</p>
-            <h2>Últimas historias</h2>
+      <section class="newsroom-grid">
+        <aside class="news-column news-column--left">
+          <div class="section-heading section-heading--compact">
+            <div>
+              <p class="eyebrow">Cobertura breve</p>
+              <h2>Ultimas noticias</h2>
+            </div>
           </div>
-          <a class="section-link" href="admin.html">Editar portada</a>
-        </div>
-        <div class="story-grid" id="latestStories"></div>
-      </section>
+          <div id="leftColumn"></div>
+        </aside>
 
-      <section class="feature-band">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Curado</p>
-            <h2>Selección del editor</h2>
+        <section class="news-column news-column--center">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Destacadas</p>
+              <h2>Historias principales</h2>
+            </div>
+            <a class="section-link" href="admin.html">Editar portada</a>
           </div>
-        </div>
-        <div class="feature-grid" id="editorPicks"></div>
-      </section>
+          <div id="centerColumn"></div>
+        </section>
 
-      <section class="mission-panel">
-        <div>
-          <p class="eyebrow">Línea Editorial</p>
-          <h2>Buenas noticias con foco en diálogo, dignidad y acción social</h2>
-        </div>
-        <p>La portada está pensada para mostrar campañas humanitarias, actividades interreligiosas, formación en derechos humanos, prevención y acciones comunitarias de impacto positivo.</p>
+        <aside class="news-column news-column--right">
+          <div class="section-heading section-heading--compact">
+            <div>
+              <p class="eyebrow">Agenda y publicidad</p>
+              <h2>Mas para leer</h2>
+            </div>
+          </div>
+          <div id="rightColumn"></div>
+        </aside>
       </section>
-
-      <section class="category-columns" id="categoryColumns"></section>
     </main>
 
     <footer class="site-footer">
       <div>
         <p class="eyebrow">Atlas Press Argentina</p>
-        <p>Portada estilo newsroom con edición web y login para el equipo editorial.</p>
+        <p>Portada estilo newsroom con edicion web y login para el equipo editorial.</p>
       </div>
       <div class="footer-links">
         <a href="index.html">Inicio</a>

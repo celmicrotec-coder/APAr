@@ -59,7 +59,7 @@
         </a>
       </div>
 
-      <div class="dashboard-grid">
+      <div class="dashboard-grid dashboard-grid--workspace">
         <form id="storyForm" class="editor-card story-editor-card">
           <div class="story-editor-header">
             <div class="story-editor-icon">N</div>
@@ -113,27 +113,31 @@
             </div>
           </div>
 
-          <div class="form-section">
-            <p class="form-section__title">Imagen y lectura</p>
-            <div class="form-split">
-              <label>
-                <span>Imagen principal</span>
-                <input type="url" name="image" placeholder="https://..." required>
-                <small class="field-hint">Usa una URL directa de imagen, por ejemplo .jpg, .png o .webp. Los links de Google Photos no se embeben bien.</small>
-              </label>
+          <div class="form-section form-section--timeline form-section--wide">
+            <div class="form-section__header">
+              <div>
+                <p class="form-section__title">Cronologia y prioridad</p>
+                <p class="field-hint">Define el contexto historico y el orden editorial de la portada.</p>
+              </div>
+              <div class="inline-badge">Control editorial</div>
             </div>
-            <div class="image-picker">
-              <label class="button button--ghost image-picker__button">
-                Incluir imagen
-                <input type="file" name="imageFile" accept="image/*">
+            <div class="form-split form-split--timeline">
+              <label>
+                <span>Fecha y hora de publicacion</span>
+                <input type="datetime-local" name="publishedAt" required>
+                <small class="field-hint">Se usa para ordenar cronologicamente el sitio y conservar contexto historico.</small>
               </label>
-              <small class="field-hint">En esta demo la imagen se guarda dentro del navegador.</small>
+              <label class="field-emphasis">
+                <span>Orden destacada</span>
+                <input type="number" name="featuredOrder" min="1" step="1" placeholder="1 = mas importante">
+                <small class="field-hint">Solo se usa si la nota esta marcada como destacada. Menor numero = mayor prioridad.</small>
+              </label>
             </div>
           </div>
 
           <div class="form-section">
             <p class="form-section__title">Ubicacion en portada</p>
-            <div class="form-split">
+            <div class="form-split form-split--toggles">
               <label class="checkbox">
                 <input type="checkbox" name="featured">
                 <span>Destacada en portada</span>
@@ -143,6 +147,47 @@
                 <span>Seleccion del editor</span>
               </label>
             </div>
+            <label>
+              <span>Posicion de texto en destacada</span>
+              <select name="featuredTextPosition">
+                <option value="auto">Automatica</option>
+                <option value="left">Izquierda</option>
+                <option value="right">Derecha</option>
+              </select>
+              <small class="field-hint">Se aplica a la columna central cuando la imagen es vertical.</small>
+            </label>
+          </div>
+
+          <div class="form-section form-section--media form-section--wide">
+            <div class="form-section__header">
+              <div>
+                <p class="form-section__title">Imagen o video</p>
+                <p class="field-hint">Carga una imagen principal o pega un video de YouTube/Vimeo para portada y articulo.</p>
+              </div>
+              <div class="inline-badge inline-badge--forest">Visual</div>
+            </div>
+            <div class="form-split form-split--media">
+              <label>
+                <span>Imagen principal</span>
+                <input type="url" name="image" placeholder="https://...">
+                <small class="field-hint">Usa una URL directa de imagen, por ejemplo .jpg, .png o .webp. Los links de Google Photos no se embeben bien.</small>
+              </label>
+              <label class="image-upload-card">
+                <span class="image-upload-card__title">Incluir imagen</span>
+                <span class="image-upload-card__copy">Selecciona un archivo y el sistema completa el campo automaticamente.</span>
+                <span class="image-upload-card__action">
+                  <span class="image-upload-card__action-label">Elegir archivo</span>
+                  <span class="image-upload-card__action-note">JPG, PNG o WEBP</span>
+                  <input type="file" name="imageFile" accept="image/*">
+                </span>
+                <small class="field-hint">En esta demo la imagen se guarda dentro del navegador.</small>
+              </label>
+            </div>
+            <label>
+              <span>URL de video</span>
+              <input type="url" name="videoUrl" placeholder="https://www.youtube.com/watch?v=... o https://vimeo.com/...">
+              <small class="field-hint">Si hay un video valido, tendra prioridad visual sobre la imagen en la portada y en el articulo.</small>
+            </label>
           </div>
 
           <div class="form-section">
@@ -194,6 +239,73 @@
               </label>
               <button type="submit" class="button button--primary">Guardar ajustes</button>
             </div>
+
+            <div class="form-section settings-section">
+              <p class="form-section__title">Franja de impacto</p>
+              <label>
+                <span>Imagen de fondo atenuada</span>
+                <input type="url" name="impactBackgroundImage" placeholder="https://...">
+                <small class="field-hint">Usa una imagen horizontal. Se mostrara suavizada detras de la franja.</small>
+              </label>
+              <div class="image-picker">
+                <label class="button button--ghost image-picker__button">
+                  Incluir imagen de fondo
+                  <input type="file" name="impactBackgroundFile" accept="image/*">
+                </label>
+                <small class="field-hint">La imagen quedara guardada localmente en este navegador.</small>
+              </div>
+              <div class="impact-preview">
+                <p class="form-section__title">Vista previa de fondo</p>
+                <div class="impact-preview__frame" id="impactPreviewFrame">
+                  <span class="impact-preview__empty">Todavia no hay imagen cargada.</span>
+                </div>
+              </div>
+              <div class="form-split">
+                <label>
+                  <span>Etiqueta 1</span>
+                  <input type="text" name="impactLabel1" placeholder="Prevencion">
+                </label>
+                <label>
+                  <span>Titulo 1</span>
+                  <input type="text" name="impactTitle1" placeholder="3.000 folletos">
+                </label>
+              </div>
+              <label>
+                <span>Texto 1</span>
+                <textarea name="impactText1" rows="3" placeholder="Resumen breve del primer dato"></textarea>
+              </label>
+              <div class="form-split">
+                <label>
+                  <span>Etiqueta 2</span>
+                  <input type="text" name="impactLabel2" placeholder="Derechos">
+                </label>
+                <label>
+                  <span>Titulo 2</span>
+                  <input type="text" name="impactTitle2" placeholder="30 derechos">
+                </label>
+              </div>
+              <label>
+                <span>Texto 2</span>
+                <textarea name="impactText2" rows="3" placeholder="Resumen breve del segundo dato"></textarea>
+              </label>
+              <div class="form-split">
+                <label>
+                  <span>Etiqueta 3</span>
+                  <input type="text" name="impactLabel3" placeholder="Dialogo">
+                </label>
+                <label>
+                  <span>Titulo 3</span>
+                  <input type="text" name="impactTitle3" placeholder="Buenos Aires 2024">
+                </label>
+              </div>
+              <label>
+                <span>Texto 3</span>
+                <textarea name="impactText3" rows="3" placeholder="Resumen breve del tercer dato"></textarea>
+              </label>
+              <div class="settings-section__actions">
+                <button type="submit" class="button button--primary">Guardar franja de impacto</button>
+              </div>
+            </div>
           </form>
 
           <div class="seed-box settings-section settings-section--demo">
@@ -227,8 +339,32 @@
           <p class="admin-copy">Estos elementos no son notas: aparecen como avisos o sponsors con link externo.</p>
         </div>
 
-        <div class="dashboard-grid">
+        <div class="dashboard-grid dashboard-grid--workspace">
           <form id="adForm" class="ad-form">
+            <div class="ad-form__header">
+              <div class="story-editor-icon story-editor-icon--ad">P</div>
+              <div>
+                <p class="eyebrow">Publicidad</p>
+                <h3>Nueva pieza / Editar pieza</h3>
+                <p class="form-intro">Carga avisos con imagen, descripcion breve y link externo. Esta zona esta separada de las noticias para que el trabajo publicitario sea mas simple de administrar.</p>
+              </div>
+            </div>
+
+            <div class="editor-summary editor-summary--ad">
+              <div>
+                <span>Tipo</span>
+                <strong>Publicidad</strong>
+              </div>
+              <div>
+                <span>Salida</span>
+                <strong>Columna derecha</strong>
+              </div>
+              <div>
+                <span>Estado</span>
+                <strong>Editable</strong>
+              </div>
+            </div>
+
             <input type="hidden" name="id">
             <div class="form-section">
               <p class="form-section__title">Datos del aviso</p>
@@ -273,9 +409,51 @@
             <div class="publish-feedback hidden" id="adFeedback"></div>
           </form>
 
-          <aside>
-            <div class="ad-preview" id="adPreview"></div>
-            <div id="adsTable" class="stories-table ad-list"></div>
+          <aside class="ad-sidebar">
+            <div class="ad-preview-panel">
+              <div class="ad-preview-panel__header">
+                <div>
+                  <p class="eyebrow">Vista previa</p>
+                  <h3>Publicidad activa</h3>
+                </div>
+                <span class="inline-badge inline-badge--forest">Portada</span>
+              </div>
+              <div class="ad-preview" id="adPreview"></div>
+            </div>
+
+            <div class="ad-library-panel">
+              <div class="ad-preview-panel__header">
+                <div>
+                  <p class="eyebrow">Biblioteca</p>
+                  <h3>Piezas cargadas</h3>
+                </div>
+                <span class="inline-badge">Gestion</span>
+              </div>
+              <div class="ad-library-tools">
+                <label class="ad-library-tools__search">
+                  <span>Buscar</span>
+                  <input type="search" id="adsSearchInput" placeholder="Titulo, descripcion o etiqueta">
+                </label>
+                <label class="ad-library-tools__sort">
+                  <span>Orden</span>
+                  <select id="adsSortSelect">
+                    <option value="recent">Mas reciente</option>
+                    <option value="oldest">Mas antiguo</option>
+                    <option value="title-asc">Titulo A-Z</option>
+                    <option value="title-desc">Titulo Z-A</option>
+                  </select>
+                </label>
+              </div>
+              <div class="ad-library-meta">
+                <p id="adsCountLabel" class="field-hint">0 piezas</p>
+              </div>
+              <div id="adsTable" class="stories-table ad-list"></div>
+              <div class="ad-library-pagination">
+                <button type="button" class="button button--ghost" id="adsPrevButton">Anterior</button>
+                <span id="adsPageLabel" class="field-hint">Pagina 1</span>
+                <button type="button" class="button button--ghost" id="adsNextButton">Siguiente</button>
+              </div>
+            </div>
           </aside>
         </div>
       </section>
